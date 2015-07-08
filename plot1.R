@@ -8,10 +8,6 @@
 # Read the data from the filtered file created above.
 epc <- read.table("Assign1.txt", sep=";", header=T, na.strings="?")
 
-# Add two new columns converting the character Date and Times to R objects.
-epc$rDate <- strptime(epc$Date, "%d/%m/%Y")
-epc$rTime <- strptime(epc$Time,"%T")
-
 # Draw the plot
 
 png(filename="plot1.png",width=480,height=480)
