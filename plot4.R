@@ -12,15 +12,15 @@ epc <- read.table("Assign1.txt", sep=";", header=T, na.strings="?")
 
 # Create a POSIXlt object vector from the Date and Time character class
 # columns.
-dTime <- strptime(paste(epc$Date,epc$Time,sep=" "),"%d/%m/%Y %T")
+dTime <- strptime(paste(epc$Date, epc$Time, sep=" "), "%d/%m/%Y %T")
 
 
 # Save a little typing...
 attach(epc)
 
 
-# Draw the plots.
-png(filename="plot4.png",width=480,height=480)
+# Draw the plot. Specify the dimensions even though they're the defaults.
+png(filename="plot4.png", width=480, height=480)
 
 
 # We want a 2x2 grid of plots
@@ -36,7 +36,7 @@ plot(dTime, Global_active_power,
 
 
 # Draw the second (top-right) plot.
-plot(dTime, Voltage, type="l", xlab="")
+plot(dTime, Voltage, type="l", xlab="datetime")
 
 
 # Draw the third (bottom-left) plot, which is the same as plot3.png.
@@ -67,5 +67,6 @@ legend("topright",
 plot(dTime, Global_reactive_power, type="l", xlab="datetime")
 
 
+# Tidy up.
 dev.off()
 detach(epc)

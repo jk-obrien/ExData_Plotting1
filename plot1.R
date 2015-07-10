@@ -8,9 +8,9 @@
 # Read the data from the filtered file created above.
 epc <- read.table("Assign1.txt", sep=";", header=T, na.strings="?")
 
-# Draw the plot
 
-png(filename="plot1.png",width=480,height=480)
+# Draw the plot. Specify the dimensions even though they're the defaults.
+png(filename="plot1.png", width=480, height=480)
 
 with(epc,
      hist(Global_active_power,

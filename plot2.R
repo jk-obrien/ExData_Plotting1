@@ -12,11 +12,11 @@ epc <- read.table("Assign1.txt", sep=";", header=T, na.strings="?")
 
 # Create a POSIXlt object vector from the Date and Time character class
 # columns.
-dTime <- strptime(paste(epc$Date,epc$Time,sep=" "),"%d/%m/%Y %T")
+dTime <- strptime(paste(epc$Date, epc$Time, sep=" "), "%d/%m/%Y %T")
 
 
-# Draw the plot
-png(filename="plot2.png",width=480,height=480)
+# Draw the plot. Specify the dimensions even though they're the defaults.
+png(filename="plot2.png", width=480, height=480)
 
 with(epc,
      plot(dTime, Global_active_power,
