@@ -26,7 +26,7 @@ epc <- read.table(pipe_con, sep=";", header=T, na.strings="?")
 close(pipe_con)
 
 
-# Create a POSIXlt object vector from the Date and Time character class columns.
+# Create a POSIXlt object vector from the Date and Time columns.
 dTime <- strptime(paste(epc$Date, epc$Time), "%d/%m/%Y %T")
 
 
