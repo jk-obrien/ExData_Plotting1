@@ -1,18 +1,32 @@
-# Prefilter the raw data file, as follows, to extract only the rows required for
-# the assignment. This requires the awk program, and was performed in a bash
-# shell on a gnu/linux system.
+# We start with the data file downloaded and unzipped.
 
-# awk -F";" 'NR == 1 || $1 =="2/2/2007" || $1 == "1/2/2007" {print $0}' \
-# household_power_consumption.txt > Assign1.txt
+# Read the data using a pipe. This allows us to read in only the data lines
+# required for the assignment. As it happens, in this case, the whole data file
+# is not too big to fit in memory, but it's a useful exercise for when we do
+# encounter a file that won't all fit.
+
+# This is not a cross-platform solution, it depends on the presence of the awk
+# program, which is installed by default on most linux/unix platforms.
 
 
-# Read the data from the filtered file created above.
-epc <- read.table("Assign1.txt", sep=";", header=T, na.strings="?")
+# First construct our awk command.
+awk_cmd <- paste(
+    "awk -F';' 'NR == 1 || $1 ==\"2/2/2007\" || $1 ==\"1/2/2007\" {print $0}'",
+    "household_power_consumption.txt"
+)
 
 
-# Create a POSIXlt object vector from the Date and Time character class
-# columns.
-dTime <- strptime(paste(epc$Date, epc$Time, sep=" "), "%d/%m/%Y %T")
+# Then make our pipe connection.
+pipe_con <- pipe(awk_cmd, open="r")
+
+
+# Read the data and close the pipe.
+epc <- read.table(pipe_con, sep=";", header=T, na.strings="?")
+close(pipe_con)
+
+
+# Create a POSIXlt object vector from the Date and Time character class columns.
+dTime <- strptime(paste(epc$Date, epc$Time), "%d/%m/%Y %T")
 
 
 # Draw the plot. Specify the dimensions even though they're the defaults.
